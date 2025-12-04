@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+# MoodMoney
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+AI-assisted personal finance and mood tracking app built with Expo and React Native.
 
-## Get started
+MoodMoney helps you understand how your emotions influence spending and saving. Log entries, visualize trends, and get AI insights tailored to your mood and financial habits.
 
-1. Install dependencies
+Effective date: 2025-12-04
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- Mood-aware expense and income entries
+- AI insights and summaries (see `app/(tabs)/ai-insights.tsx`)
+- Charts and visualizations (Victory + Skia)
+- Secure sync with Firebase (Auth + Firestore)
+- In-app purchases/subscriptions (RevenueCat SDK)
+- Offline-friendly and fast state with Zustand
+- Expo Router file-based navigation
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+- React Native 0.81, Expo SDK 54
+- Expo Router 6, TypeScript
+- Firebase (app, auth, firestore)
+- Zustand for state management
+- RevenueCat (`react-native-purchases`, `react-native-purchases-ui`)
+- Charts: `victory-native`, `@shopify/react-native-skia`
+- Utilities: `date-fns`, `@expo/vector-icons`, etc.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+See `package.json` for full dependency versions.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Project Structure (high level)
 
-## Get a fresh project
+- `app/` – screens and routing (Expo Router)
+  - `(tabs)/` – tabbed app screens (Home, AI Insights, Settings)
+- `src/` – reusable modules
+  - `components/` – UI components (e.g., `home/EntryItem.tsx`)
+  - `store/` – Zustand stores (e.g., `useEntriesStore.ts`)
+- `assets/` – images, lottie, fonts
+- `firebaseConfig.ts` – Firebase bootstrap
+- `PRIVACY_POLICY.md`, `TERMS_OF_USE.md`, `support.md` – user-facing docs
 
-When you're ready, run:
+## Prerequisites
+
+- Node.js 18+ and npm
+- Xcode (macOS) for iOS builds; Android Studio for Android
+- Expo CLI: `npm i -g expo` (optional; `npx expo` works too)
+
+## Setup
+
+1) Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2) Configure Firebase
 
-## Learn more
+- Add platform configs already included:
+  - `GoogleService-Info.plist` (iOS)
+  - `google-services.json` (Android)
+- Ensure `firebaseConfig.ts` points to your Firebase project configuration.
 
-To learn more about developing your project with Expo, look at the following resources:
+3) RevenueCat (optional, if you plan to test purchases)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Configure products and entitlements in RevenueCat dashboard.
+- Ensure the bundle identifiers and package names match your app.json / native projects.
 
-## Join the community
+## Running the App (Dev)
 
-Join our community of developers creating universal apps.
+Start Metro and choose a target:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx expo start
+```
+
+Useful scripts:
+
+- iOS simulator: `npm run ios`
+- Android emulator: `npm run android`
+- Web (limited): `npm run web`
+
+## Building
+
+Local builds using the native toolchains:
+
+- iOS: `npm run ios` (requires Xcode)
+- Android: `npm run android` (requires Android Studio/SDK)
+
+You can also configure EAS Build if desired (not included by default).
+
+## Environment and Secrets
+
+- Firebase credentials are provided via `GoogleService-Info.plist` and `google-services.json`.
+- Do not commit sensitive keys. For additional secrets, prefer platform-specific secure storage or CI secrets.
+
+## Quality
+
+- TypeScript strictness is enabled per `tsconfig.json`.
+- Lint: `npm run lint`
+- At present, there are no unit tests in this repository.
+
+## Release Checklist
+
+- Update app metadata, icons, splash, and version in `app.json` and native projects
+- Verify Firebase config for production project
+- Verify RevenueCat products/entitlements and sandbox testers
+- Run through purchase flows on physical devices
+- Check analytics/consent as required by your region
+- Update `PRIVACY_POLICY.md`, `TERMS_OF_USE.md` if needed
+
+## Support
+
+For help, see `support.md` or contact:
+
+- Email: support@moodmoney.app
+- Alternate: boskojaksic2407995@gmail.com
+
+Typical response: 1–2 business days. Severity handling and templates are in `support.md`.
+
+## Privacy and Terms
+
+- Privacy Policy: `PRIVACY_POLICY.md`
+- Terms of Use: `TERMS_OF_USE.md`
+
+## Contributing
+
+This is a private application repository. External contributions are not currently accepted.
+
+## Security
+
+If you discover a vulnerability, please email `support@moodmoney.app` with subject "Security Report" and do not disclose publicly until addressed.
+
+## License
+
+Copyright (c) MoodMoney. All rights reserved.

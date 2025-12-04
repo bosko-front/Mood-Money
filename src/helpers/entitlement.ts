@@ -1,0 +1,3 @@
+export const RC_ENTITLEMENT_STRING = __DEV__
+    ? process.env.EXPO_PUBLIC_ENTITLEMENT_STRING_TEST!
+    : process.env.EXPO_PUBLIC_ENTITLEMENT_STRING!;
