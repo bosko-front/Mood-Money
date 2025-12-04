@@ -114,7 +114,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             const user = userCredential.user;
 
             if (user && !user.emailVerified) {
-                set({error: "Please verify your email"});
+                set({loginLoading: false,error: "Please verify your email"});
                 return;
             }
 
