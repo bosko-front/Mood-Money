@@ -100,9 +100,3 @@ We may update this Policy from time to time. If we make material changes, we wil
 
 17. Contact
 If you have questions or concerns about this Policy or our data practices, contact us at  boskojaksic2407995@gmail.com.
-
-Additional notes for implementers/owners (to review and confirm before publishing):
-- Legal entity name and registered address: Add if applicable.
-- Data Protection Officer (DPO) contact: Add if required by law.
-- Hosting regions and transfer safeguards: Confirm details with your cloud providers (e.g., Firebase project region).
-- Detailed retention schedule and in‑app data export/deletion controls: Ensure they match the current product capabilities.
