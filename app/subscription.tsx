@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ActivityIndicator} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ActivityIndicator, Linking} from "react-native";
 import {Colors} from "@/src/constants";
 import {LinearGradient} from "expo-linear-gradient";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -10,6 +10,7 @@ import {syncPremiumStatus, useAuthStore} from "@/src/store/useAuthStore";
 import Purchases, {CustomerInfo, PurchasesOfferings, PurchasesPackage} from "react-native-purchases";
 import {useCustomerInfoStore} from "@/src/store/useCustomerInfoStore";
 import {RC_ENTITLEMENT_STRING} from "@/src/helpers/entitlement";
+import * as WebBrowser from 'expo-web-browser';
 
 export default function Subscription() {
     const insets = useSafeAreaInsets();
@@ -115,6 +116,19 @@ export default function Subscription() {
             }
         } finally {
             setIsPurchasing(false);
+        }
+    };
+
+    const openInApp = async (url: string) => {
+        try {
+            await WebBrowser.openBrowserAsync(url, {
+                presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
+                controlsColor: Colors.primary,
+                dismissButtonStyle: 'done',
+            });
+        } catch (e) {
+            // Fallback to system linking if in-app browser fails
+            Linking.openURL(url);
         }
     };
 
@@ -304,7 +318,27 @@ export default function Subscription() {
                 <Text style={styles.legalText}>
                     Subscriptions renew automatically. You can cancel anytime in your device settings.
                 </Text>
+
+                <View style={styles.legalContainer}>
+                    <View style={styles.legalLinksRow}>
+                        <TouchableOpacity
+                            onPress={() => openInApp('https://github.com/bosko-front/Mood-Money/blob/main/TERMS_OF_USE.md')}
+                            accessibilityRole="link"
+                        >
+                            <Text style={styles.legalLinkText}>Terms of Use</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.legalSeparator}>•</Text>
+                        <TouchableOpacity
+                            onPress={() => openInApp('https://github.com/bosko-front/Mood-Money/blob/main/PRIVACY_POLICY.md')}
+                            accessibilityRole="link"
+                        >
+                            <Text style={styles.legalLinkText}>Privacy Policy</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </ScrollView>
+
+
 
             {isPurchasing && (
                 <View style={styles.loadingOverlay} pointerEvents="auto">
@@ -425,6 +459,30 @@ const styles = StyleSheet.create({
     secondaryCtaText: {color: Colors.textSecondary, fontWeight: "700"},
 
     legalText: {textAlign: "center", color: Colors.textSecondary, fontSize: 12, marginTop: 16},
+
+    // Legal links styling
+    legalContainer: {
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    legalLinksRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: 8,
+    },
+    legalLinkText: {
+        color: Colors.primary,
+        fontSize: 12,
+        fontWeight: '700',
+    },
+    legalSeparator: {
+        color: Colors.textSecondary,
+        fontSize: 12,
+        opacity: 0.8,
+    },
 
     // New styles for loading/error and billing banner
     loadingText: {marginTop: 8, color: Colors.textSecondary},
