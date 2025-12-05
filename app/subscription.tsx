@@ -322,7 +322,7 @@ export default function Subscription() {
                 <View style={styles.legalContainer}>
                     <View style={styles.legalLinksRow}>
                         <TouchableOpacity
-                            onPress={() => openInApp('https://github.com/bosko-front/Mood-Money/blob/main/TERMS_OF_USE.md')}
+                            onPress={() => openInApp('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')}
                             accessibilityRole="link"
                         >
                             <Text style={styles.legalLinkText}>Terms of Use</Text>
