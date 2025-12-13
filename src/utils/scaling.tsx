@@ -10,7 +10,7 @@ const verticalScale = (size:any) => (height / guidelineBaseHeight) * size;
 const moderateScale = (size:any, factor = 0.5) => size + (scale(size) - size) * factor;
 const isTablet = width > 768;
 const isAndroid = Platform.OS === 'android';
-const scaleFont = (size: number) => size * (width / 375);
+const scaleFont = (size: number) => size * (width / guidelineBaseWidth);
 
 
 export { scale, scaleFont, verticalScale, moderateScale, isTablet, width, height,isAndroid };

@@ -7,6 +7,6 @@ type FilterStore = {
 };
 
 export const useFilterStore = create<FilterStore>((set) => ({
-    daysRange: 7,
+    daysRange: 30,
     setDaysRange: (days) => set({ daysRange: days }),
 }));
